@@ -1,0 +1,30 @@
+{
+  "name": "task-trecker-test",
+  "version": "1.0.0",
+  "description": "src/index.ts",
+  "homepage": "https://github.com/FideltheAleXX/task-trecker-test#readme",
+  "bugs": {
+    "url": "https://github.com/FideltheAleXX/task-trecker-test/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FideltheAleXX/task-trecker-test.git"
+  },
+  "license": "ISC",
+  "author": "Sasha",
+  "type": "commonjs",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "ts-node src/index",
+    "dev": "nodemon src/index.ts"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  }
+}
