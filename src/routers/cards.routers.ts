@@ -1,28 +1,68 @@
 import express, { Response, Request } from 'express';
 import { Card, CreateCardReq, GetCardsRes } from '../types/cards';
 import { IdParams } from '../types/common';
+import {
+  createCard,
+  deleteCard,
+  getManyCards,
+  getOneCard,
+  updateCard,
+} from '../database/cards-repo';
+import { randomUUID } from 'crypto';
 
 export const cardsRouter = express.Router();
 
-cardsRouter.get('/', (req: Request<{}, {}>, res: Response<GetCardsRes>) => {
-  //TODO return cards
-});
-
-cardsRouter.get('/:id', (req: Request<IdParams, {}>, res: Response<Card>) => {
-  //TODO return card
-});
-
-cardsRouter.post(
+cardsRouter.get(
   '/',
-  (req: Request<{}, CreateCardReq>, res: Response<Card>) => {
-    //TODO create cards
+  async (req: Request<{}, {}>, res: Response<GetCardsRes>) => {
+    const cards = await getManyCards();
+    res.send(cards);
   }
 );
 
-cardsRouter.put('/:id', (req: Request<IdParams, Card>, res: Response<Card>) => {
-  //TODO update cards
-});
+cardsRouter.get(
+  '/:id',
+  async (
+    req: Request<IdParams, Card | string, {}>,
+    res: Response<Card | string>
+  ) => {
+    const card = await getOneCard(req.params.id);
+    if (!card) {
+      res.status(404).send('Card not found');
+      return;
+    }
+    res.send(card);
+  }
+);
 
-cardsRouter.delete('/:id', (req: Request<IdParams>, res: Response<void>) => {
-  //TODO delete cards
-});
+cardsRouter.post(
+  '/',
+  async (req: Request<{}, Card, CreateCardReq>, res: Response<Card>) => {
+    const card: Card = {
+      text: req.body.text,
+      id: randomUUID(),
+    };
+    await createCard(card);
+    res.send(card);
+  }
+);
+
+cardsRouter.put(
+  '/:id',
+  async (req: Request<IdParams, Card, CreateCardReq>, res: Response<Card>) => {
+    const card: Card = {
+      id: req.params.id,
+      text: req.body.text,
+    };
+    await updateCard(card);
+    res.send(card);
+  }
+);
+
+cardsRouter.delete(
+  '/:id',
+  async (req: Request<IdParams>, res: Response<void>) => {
+    await deleteCard(req.params.id);
+    res.sendStatus(204);
+  }
+);
