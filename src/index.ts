@@ -4,6 +4,7 @@ import { cardsRouter } from './routers/cards.routers';
 import { createTables } from './database/create-tables';
 import basicAuth from 'express-basic-auth';
 import { logger } from './types/logger';
+import { boardsRouter } from './routers/bords.router';
 
 async function run() {
   await createTables();
@@ -23,6 +24,7 @@ async function run() {
     res.send('Server is working.');
   });
 
+  server.use('/boards', boardsRouter);
   server.use('/cards', cardsRouter);
 
   server.listen(PORT);
