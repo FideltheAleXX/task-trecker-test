@@ -37,7 +37,7 @@ export const sqliteGet = (
   });
 };
 
-export const sqliteAll = (sql: string, params?: []): Promise<unknown> => {
+export const sqliteAll = (sql: string, params?: any[]): Promise<unknown> => {
   return new Promise((res, rej) => {
     db.all(sql, params, (error: unknown, data: unknown) => {
       if (error) {

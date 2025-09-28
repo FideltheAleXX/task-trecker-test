@@ -5,6 +5,7 @@ import { createTables } from './database/create-tables';
 import basicAuth from 'express-basic-auth';
 import { logger } from './types/logger';
 import { boardsRouter } from './routers/bords.router';
+import { columnsRouter } from './routers/columns.router';
 
 async function run() {
   await createTables();
@@ -25,6 +26,7 @@ async function run() {
   });
 
   server.use('/boards', boardsRouter);
+  server.use('/boards/:boardId/columns', columnsRouter);
   server.use('/cards', cardsRouter);
 
   server.listen(PORT);

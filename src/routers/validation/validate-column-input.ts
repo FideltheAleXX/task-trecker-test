@@ -1,9 +1,9 @@
-import { CreateBoardReq } from '../../types/boards';
-import { Board } from '../../types/boards/board';
+import { CreateColumnReq } from '../../types/columns';
+import { Column } from '../../types/columns/column';
 import { Request, Response } from 'express';
 
-export const validateBoardInput = (
-  { body }: Request<unknown, Board, CreateBoardReq>,
+export const validateColumnInput = (
+  { body }: Request<unknown, Column, CreateColumnReq>,
   res: Response,
   next: () => void
 ): void => {
