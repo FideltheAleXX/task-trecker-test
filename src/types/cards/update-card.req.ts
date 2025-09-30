@@ -1,5 +1,4 @@
-export type Card = {
-  id: string;
+export type UpdateCardReq = {
   text: string;
   columnId: string;
 };

@@ -27,7 +27,7 @@ async function run() {
 
   server.use('/boards', boardsRouter);
   server.use('/boards/:boardId/columns', columnsRouter);
-  server.use('/cards', cardsRouter);
+  server.use('/boards/:boardId/columns/:columnId/cards', cardsRouter);
 
   server.listen(PORT);
 }
